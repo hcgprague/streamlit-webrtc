@@ -221,7 +221,8 @@ class MediaStreamMixTrack(MediaStreamTrack, Generic[FrameT]):
         )
         self._input_tasks[input_proxy] = task
 
-        input_proxy.on("ended")(functools.partial(self.remove_input_proxy, input_proxy))
+        #input_proxy.on("ended")(functools.partial(self.remove_input_proxy, input_proxy))
+        input_track.on("ended")(functools.partial(self.remove_input_proxy, input_proxy))  # when ctx player click_stop
 
     def remove_input_proxy(self, input_proxy: RelayStreamTrack) -> None:
         LOGGER.debug("Remove a relay track %s from %s", input_proxy, self)
